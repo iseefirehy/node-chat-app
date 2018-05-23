@@ -17,11 +17,17 @@ io.on('connection',(socket) =>{
 
     socket.on('createMessage',(message)=>{
        console.log('createMessage', message);
-       io.emit('newMessage',{ //io emits to every single connections all the tabs
+       // io.emit('newMessage',{ //io emits to every single connections all the tabs
+       //      from:message.from,
+       //      text:message.text,
+       //      createdAt:new Date().getTime()
+       // });
+
+        socket.broadcast.emit('newMessage',{ //Send to every sockets but socket who sends the message
             from:message.from,
-            text:message.text,
+            text: message.text,
             createdAt:new Date().getTime()
-       });
+        });
     });
 
    socket.on('disconnected',()=>{
