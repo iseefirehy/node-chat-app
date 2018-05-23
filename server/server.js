@@ -14,10 +14,14 @@ app.use(express.static(publicPath));
 io.on('connection',(socket) =>{
    console.log('New user connected');
 
-   socket.emit('newEmail',{
-      from:'mike@example.com',
-       text:'Hey,what is going on.',
-       createAt: 123
+
+    socket.on('createMessage',(message)=>{
+       console.log('createMessage', message);
+       io.emit('newMessage',{ //io emits to every single connections all the tabs
+            from:message.from,
+            text:message.text,
+            createdAt:new Date().getTime()
+       });
     });
 
    socket.on('disconnected',()=>{
@@ -25,7 +29,7 @@ io.on('connection',(socket) =>{
    });
 });
 
-server .listen(port,()=>{
+server.listen(port,()=>{
    console.log(`Server is up on ${port}`);
 });
 
