@@ -1,0 +1,1 @@
+var generateMessage = (fro)
