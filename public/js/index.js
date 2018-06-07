@@ -15,6 +15,6 @@ socket.on('newMessage', function (message) {
 socket.emit('createMessage', {
     from: 'Frank',
     text: 'Hi'
-}, function (data) {
+}, function (data) { //callback function
     console.log('Got it', data);
 });
